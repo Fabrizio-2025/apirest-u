@@ -1,14 +1,18 @@
 package com.ar.security.api.rest;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
+import com.ar.security.domain.model.entity.User;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin("*")
+
 @RestController
-@RequestMapping("/users")
+@RequestMapping(value = "/users",produces = "application/json")
 public class UserController {
 
-
+    @GetMapping
+    public User Welcome(){
+        return new User(1L,"Pedro","pedro@gmail.com","pedro1");
+    }
 
 }

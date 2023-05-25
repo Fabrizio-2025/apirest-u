@@ -3,7 +3,8 @@ package com.ar.shared.mapping;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+
+@Configuration("sharedMappingConfiguration")
 public class MappingConfiguration  {
     @Bean
     public EnhancedModelMapper enhancedModelMapper(){

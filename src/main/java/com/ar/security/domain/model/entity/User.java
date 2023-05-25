@@ -1,13 +1,9 @@
 package com.ar.security.domain.model.entity;
 
-import com.ar.security.domain.model.enums.Roles;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,7 +27,4 @@ public class User {
     @NotBlank
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Roles> roles = new HashSet<>();
 }
