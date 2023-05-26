@@ -1,4 +1,4 @@
-package com.ar.apirestu.resource.show;
+package com.ar.apirestu.resource.create;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -8,10 +8,12 @@ import lombok.*;
 @With
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResource {
+public class CreateUserResource {
 
-    private long userId;
-    private String userName;
+    @JsonIgnore
+    private Long userId;
+    private String username;
     private String email;
     private String password;
+
 }

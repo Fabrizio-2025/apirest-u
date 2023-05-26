@@ -3,10 +3,15 @@ package com.ar.security.service;
 import com.ar.security.domain.model.entity.User;
 import com.ar.security.domain.persistence.UserRepository;
 import com.ar.security.domain.service.UserService;
+import com.ar.shared.exception.ResourceNotFoundException;
+import com.ar.shared.exception.ResourceValidationException;
+import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,6 +28,27 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAll(){
         return userRepository.findAll();
+    }
+
+    @Override
+    public User getById(Long userId) {
+        return userRepository.findByUserId(userId).orElseThrow(() -> new ResourceNotFoundException(entity, userId));
+    }
+
+    @Override
+    public User create(User user) {
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        if(!violations.isEmpty())
+            throw new ResourceValidationException(entity, violations);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public ResponseEntity<?> delete(Long productId) {
+        return userRepository.findByUserId(productId).map(product -> {
+            userRepository.delete(product);
+            return ResponseEntity.ok().build();
+        }).orElseThrow(() -> new ResourceNotFoundException(entity, productId));
     }
 
 }
