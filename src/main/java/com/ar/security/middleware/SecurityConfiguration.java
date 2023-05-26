@@ -8,7 +8,7 @@ import org.springframework.web.cors.CorsConfiguration;
 
 import java.util.Arrays;
 
-@Configuration("securityConfig")
+@Configuration("SecurityConfiguration")
 public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
