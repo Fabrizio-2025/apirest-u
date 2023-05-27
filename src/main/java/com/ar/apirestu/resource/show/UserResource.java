@@ -11,7 +11,7 @@ import lombok.*;
 public class UserResource {
 
     private long userId;
-    private String userName;
+    private String username;
     private String email;
     private String password;
 }
