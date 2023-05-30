@@ -2,6 +2,7 @@ package com.ar.security.api.rest;
 
 import com.ar.apirestu.resource.create.CreateUserResource;
 import com.ar.apirestu.resource.show.UserResource;
+import com.ar.apirestu.resource.update.UpdateUserResource;
 import com.ar.security.domain.service.UserService;
 import com.ar.security.mapping.mappers.UserMapper;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +33,17 @@ public class UserController {
     }
 
     @PostMapping
-    public UserResource createProduct(@RequestBody CreateUserResource userResource) {
+    public UserResource createUser(@RequestBody CreateUserResource userResource) {
         return userMapper.toResource(userService.create(userMapper.createResourceToModel(userResource)));
     }
 
+    @PutMapping("{id}")
+    public UserResource updateUser(@PathVariable Long id, @RequestBody UpdateUserResource userResource){
+        return userMapper.toResource(userService.update(id,userMapper.updateResourceToModel(userResource)));
+    }
+
     @DeleteMapping("{id}")
-    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         return userService.delete(id);
     }
 }

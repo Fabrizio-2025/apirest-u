@@ -14,4 +14,6 @@ public interface UserService {
 
     ResponseEntity<?> delete(Long id);
 
+    User update(Long id, User updatedUser);
+
 }

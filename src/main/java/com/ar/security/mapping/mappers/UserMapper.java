@@ -2,6 +2,7 @@ package com.ar.security.mapping.mappers;
 
 import com.ar.apirestu.resource.create.CreateUserResource;
 import com.ar.apirestu.resource.show.UserResource;
+import com.ar.apirestu.resource.update.UpdateUserResource;
 import com.ar.security.domain.model.entity.User;
 import com.ar.shared.mapping.EnhancedModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,9 @@ public class UserMapper implements Serializable {
 
     public User createResourceToModel(CreateUserResource createProductResource) {
         return mapper.map(createProductResource, User.class);
+    }
+
+    public User updateResourceToModel(UpdateUserResource updateProductResource) {
+        return mapper.map(updateProductResource, User.class);
     }
 }

@@ -43,12 +43,29 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    public User update(Long userId, User updatedUser) {
+        Set<ConstraintViolation<User>> violations = validator.validate(updatedUser);
+        if(!violations.isEmpty())
+            throw new ResourceValidationException(entity, violations);
+        if(!userRepository.existsByUserId(userId))
+            throw new ResourceValidationException("User does not exist.");
+
+        User existingUser = userRepository.findByUserId(userId).get();
+
+
+
+        return userRepository.save(existingUser
+                .withUsername(updatedUser.getUsername())
+                .withEmail(updatedUser.getEmail())
+                .withPassword(updatedUser.getPassword()));
+    }
+
     @Override
-    public ResponseEntity<?> delete(Long productId) {
-        return userRepository.findByUserId(productId).map(product -> {
-            userRepository.delete(product);
+    public ResponseEntity<?> delete(Long userId) {
+        return userRepository.findByUserId(userId).map(user -> {
+            userRepository.delete(user);
             return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException(entity, productId));
+        }).orElseThrow(() -> new ResourceNotFoundException(entity, userId));
     }
 
 }
